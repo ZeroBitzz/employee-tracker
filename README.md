@@ -1,2 +1,2 @@
 # employee-tracker
-A CMS for managing employees in a company.
+A CMS(content managing system) for managing employees in a company.
