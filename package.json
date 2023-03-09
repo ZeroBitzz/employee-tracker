@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "inquirer": "^8.2.5",
-    "mysql": "^2.18.1"
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.29.1"
   },
   "name": "employee-tracker",
   "description": "A CMS for managing employees in a company.",
