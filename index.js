@@ -1,8 +1,16 @@
-const express = require('express')
-const database = require('./database/connection')
+const inquirer = require('inquirer')
 
-const app = express()
-
-app.listen(process.env.port || 5000, () => {
-    console.log(`server is running on ${process.env.port || 5000}`)
-})
+inquirer
+  .prompt([
+    /* Pass your questions in here */
+  ])
+  .then((answers) => {
+    // Use user feedback for... whatever!!
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else went wrong
+    }
+  });
