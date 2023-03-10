@@ -1,16 +1,3 @@
-// // todo-finished: remove testConnection() function when project is finished
-// // todo-finished: remove needless console.logs when project is finished
-// // todo: connect database
-// // todo: present options with inquirer (view departments, view roles, view employees, add department, add role, add employee, update employee role)
-// // todo: view department option display formatted table with departments
-// // todo: view roles display job title, role id, department that role belongs to, and salary for role
-// // todo: view employees display formatted table showing employee data
-// // todo: add department option
-// // todo: add role option
-// // todo: add employee option
-// // todo: update employee role option
-// // todo: add manager option to employee
-
 const inquirer = require('inquirer')
 const { Sequelize, DataTypes } = require('sequelize')
 
