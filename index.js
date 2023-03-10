@@ -9,6 +9,7 @@
 // // todo: add role option
 // // todo: add employee option
 // todo: update employee role option
+// todo: add manager option to employee
 
 const inquirer = require('inquirer')
 const { Sequelize, DataTypes } = require('sequelize')
@@ -262,6 +263,68 @@ const cms = async () => {
                 idNum++
             })
             console.log('')
+        }else if (homeStatus === 'update employee role'){
+            console.log('')
+            console.log('')
+            console.log('')
+            const {employeeToUpdate} = await inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    name: 'employeeToUpdate',
+                    message: 'What is the name of the employee that you would like to update?'
+                }
+            ])
+            const employeesArr = []
+            const employees = await Employees.findAll();
+            employees.forEach((employee) => {
+                employeesArr.push(employee.name)
+            })
+            if(!employeesArr.includes(employeeToUpdate)){
+                console.log('error: there is no employee with that name')
+                console.log(`this is the employees array: ${employeesArr}`)
+            }else{
+                console.log('')
+                console.log('---message---')
+                console.log(`employee name ${employeeToUpdate} accepted`)
+                const {updatedRole} = await inquirer
+                .prompt([
+                    {
+                        type: 'input',
+                        name: 'updatedRole',
+                        message: `What role do you want to assign to ${employeeToUpdate}`
+                    }
+                ])
+                const rolesArr = []
+                const roles = await Roles.findAll();
+                let updatedDepartment
+                let updatedSalary
+                roles.forEach((role) => {
+                    rolesArr.push(toString(role.name))
+                    if(toString(role.name) === toString(updatedRole)){
+                        console.log('name found!!!')
+                        updatedDepartment = role.roleDepartment
+                        updatedSalary = role.salary
+                    }
+                })
+                if(!rolesArr.includes(toString(updatedRole))){
+                    console.log('error: there is no role with that name')
+                    console.log(`this is the roles array: ${rolesArr}`)
+                }else{
+                    const employees = await Employees.findAll();
+                    employees.forEach( async (employee) => {
+                        if(toString(employee.name) === toString(employeeToUpdate)){
+                            employee.role = updatedRole
+                            employee.department = updatedDepartment
+                            employee.salary = updatedSalary
+                            await employee.save()
+                        }
+                    })
+                    console.log('')
+                    console.log('---message---')
+                    console.log(`${employeeToUpdate} has a new role of ${updatedRole}`)
+                }
+            }
         }
 
         // exit app
