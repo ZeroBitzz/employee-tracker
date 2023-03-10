@@ -265,8 +265,6 @@ const cms = async () => {
                         console.log(employee.name)
                         if(employee.name === newEmployeeManager){
                             managerName = newEmployeeManager
-                        }else{
-                            console.log('error: manager name not found in database')
                         }
                     })
                 }
@@ -328,7 +326,7 @@ const cms = async () => {
                 roles.forEach((role) => {
                     rolesArr.push(toString(role.name))
                     if(toString(role.name) === toString(updatedRole)){
-                        console.log('name found!!!')
+                        console.log('role found!!!')
                         updatedDepartment = role.roleDepartment
                         updatedSalary = role.salary
                     }
@@ -339,7 +337,7 @@ const cms = async () => {
                 }else{
                     const employees = await Employees.findAll();
                     employees.forEach( async (employee) => {
-                        if(toString(employee.name) === toString(employeeToUpdate)){
+                        if(employee.name === employeeToUpdate){
                             employee.role = updatedRole
                             employee.department = updatedDepartment
                             employee.salary = updatedSalary
