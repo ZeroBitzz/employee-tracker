@@ -253,11 +253,13 @@ const cms = async () => {
             console.log('')
             console.log('')
             console.log('')
-            console.log('employee name / employee role / employee department / employee salary')
+            console.log('id / employee name / employee role / employee department / employee salary')
             console.log('--------')
             const employees = await Employees.findAll();
+            let idNum = 1
             employees.forEach((employee) => { // displays all the roles in the database
-                console.log(`${employee.name} / ${employee.role} / ${employee.department} / ${employee.salary}`)
+                console.log(`${idNum} / ${employee.name} / ${employee.role} / ${employee.department} / ${employee.salary}`)
+                idNum++
             })
             console.log('')
         }
