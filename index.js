@@ -1,5 +1,5 @@
 // // todo-finished: remove testConnection() function when project is finished
-// todo-finished: remove needless console.logs when project is finished
+// // todo-finished: remove needless console.logs when project is finished
 // // todo: connect database
 // // todo: present options with inquirer (view departments, view roles, view employees, add department, add role, add employee, update employee role)
 // // todo: view department option display formatted table with departments
@@ -89,8 +89,6 @@ const cms = async () => {
     // while loop that runs the app
     let home = true
     while(home){
-        const departments = await Departments.findAll()
-
         const {homeStatus} = await inquirer
         .prompt([
           {
@@ -163,7 +161,6 @@ const cms = async () => {
             const rolesArr = []
             const roles = await Roles.findAll();
             roles.forEach((role) => {
-                console.log('logged role in array')
                 rolesArr.push(role.name)
             })
             if(rolesArr.includes(newRoleName)){
@@ -231,7 +228,6 @@ const cms = async () => {
             roles.forEach((role) => {
                 rolesArr.push(role.name)
                 if(role.name === newEmployeeRole){
-                    console.log('found role department')
                     roleDepartment = role.roleDepartment
                     roleSalary = role.salary
                 }
@@ -268,6 +264,9 @@ const cms = async () => {
                         }
                     })
                 }
+                console.log('')
+                console.log('')
+                console.log('')
                 console.log('---message---')
                 console.log(`The new employee ${newEmployeeName} has been created with the role ${newEmployeeRole} in department ${roleDepartment} and has a salary of ${roleSalary}!`)
                 await Employees.create({name: newEmployeeName, role: newEmployeeRole, department: roleDepartment, salary: roleSalary, manager: managerName })
@@ -308,9 +307,6 @@ const cms = async () => {
                 console.log('error: there is no employee with that name')
                 console.log(`this is the employees array: ${employeesArr}`)
             }else{
-                console.log('')
-                console.log('---message---')
-                console.log(`employee name ${employeeToUpdate} accepted`)
                 const {updatedRole} = await inquirer
                 .prompt([
                     {
@@ -326,7 +322,6 @@ const cms = async () => {
                 roles.forEach((role) => {
                     rolesArr.push(toString(role.name))
                     if(toString(role.name) === toString(updatedRole)){
-                        console.log('role found!!!')
                         updatedDepartment = role.roleDepartment
                         updatedSalary = role.salary
                     }
@@ -345,8 +340,11 @@ const cms = async () => {
                         }
                     })
                     console.log('')
+                    console.log('')
+                    console.log('')
                     console.log('---message---')
                     console.log(`${employeeToUpdate} has a new role of ${updatedRole}`)
+                    console.log('')
                 }
             }
         }
