@@ -4,10 +4,10 @@
 // // todo: present options with inquirer (view departments, view roles, view employees, add department, add role, add employee, update employee role)
 // // todo: view department option display formatted table with departments
 // // todo: view roles display job title, role id, department that role belongs to, and salary for role
-// todo: view employees display formatted table showing employee data
+// // todo: view employees display formatted table showing employee data
 // // todo: add department option
 // // todo: add role option
-// todo: add employee option
+// // todo: add employee option
 // todo: update employee role option
 
 const inquirer = require('inquirer')
@@ -124,14 +124,6 @@ const cms = async () => {
             roles.forEach((role) => { // displays all the roles in the database
                 console.log(`${role.name} / ${role.roleDepartment} / ${role.salary}`)
             })
-            console.log('')
-        }else if(homeStatus === 'view employees'){ // this views all employees
-            console.log('')
-            console.log('')
-            console.log('')
-            console.log('name of employee')
-            console.log('--------')
-            rolesArr.forEach((role) => {console.log(role)})
             console.log('')
         }else if(homeStatus === 'add department'){ // this adds a department
             console.log('')
@@ -253,6 +245,17 @@ const cms = async () => {
                 console.log('')
             }
             
+        }else if (homeStatus === 'view employees'){
+            console.log('')
+            console.log('')
+            console.log('')
+            console.log('employee name / employee role / employee department / employee salary')
+            console.log('--------')
+            const employees = await Employees.findAll();
+            employees.forEach((employee) => { // displays all the roles in the database
+                console.log(`${employee.name} / ${employee.role} / ${employee.department} / ${employee.salary}`)
+            })
+            console.log('')
         }
 
         // exit app
