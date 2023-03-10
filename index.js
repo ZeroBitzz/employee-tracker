@@ -107,11 +107,13 @@ const cms = async () => {
             console.log('')
             console.log('')
             console.log('')
-            console.log('departments')
+            console.log('id / name')
             console.log('--------')
             const departments = await Departments.findAll();
+            let idNum = 1
             departments.forEach((department) => { // displays all the departments in the database
-                console.log(`${department.name}`)
+                console.log(`${idNum} / ${department.name}`)
+                idNum++
             })
             console.log('')
         }else if(homeStatus === 'view roles'){ // this views all roles
