@@ -8,8 +8,8 @@
 // // todo: add department option
 // // todo: add role option
 // // todo: add employee option
-// todo: update employee role option
-// todo: add manager option to employee
+// // todo: update employee role option
+// // todo: add manager option to employee
 
 const inquirer = require('inquirer')
 const { Sequelize, DataTypes } = require('sequelize')
@@ -240,13 +240,39 @@ const cms = async () => {
                 console.log('error: there is no role with that name')
                 console.log(`this is the roles array: ${rolesArr}`)
             }else{
-                console.log('')
-                console.log('---message---')
-                console.log(`role ${newEmployeeRole} accepted`)
-                console.log('')
+                const {managerConfirm} = await inquirer
+                .prompt([
+                    {
+                        type: 'confirm',
+                        name: 'managerConfirm',
+                        message: 'Does this employee have a manager?'
+                    }
+                ])
+                let managerName = null
+                if(managerConfirm){
+                    const {newEmployeeManager} = await inquirer
+                    .prompt([
+                        {
+                            type: 'input',
+                            name: 'newEmployeeManager',
+                            message: 'What is the managers name?'
+                        }
+                    ])
+                    const employeesArr = []
+                    const employees = await Employees.findAll();
+                    employees.forEach((employee) => {
+                        employeesArr.push(employee.name)
+                        console.log(employee.name)
+                        if(employee.name === newEmployeeManager){
+                            managerName = newEmployeeManager
+                        }else{
+                            console.log('error: manager name not found in database')
+                        }
+                    })
+                }
                 console.log('---message---')
                 console.log(`The new employee ${newEmployeeName} has been created with the role ${newEmployeeRole} in department ${roleDepartment} and has a salary of ${roleSalary}!`)
-                await Employees.create({name: newEmployeeName, role: newEmployeeRole, department: roleDepartment, salary: roleSalary })
+                await Employees.create({name: newEmployeeName, role: newEmployeeRole, department: roleDepartment, salary: roleSalary, manager: managerName })
                 console.log('')
             }
             
