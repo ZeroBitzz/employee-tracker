@@ -120,11 +120,13 @@ const cms = async () => {
             console.log('')
             console.log('')
             console.log('')
-            console.log('role name / role department / role salary')
+            console.log('id / role name / role department / role salary')
             console.log('--------')
             const roles = await Roles.findAll();
+            let idNum = 1
             roles.forEach((role) => { // displays all the roles in the database
-                console.log(`${role.name} / ${role.roleDepartment} / ${role.salary}`)
+                console.log(`${idNum} / ${role.name} / ${role.roleDepartment} / ${role.salary}`)
+                idNum++
             })
             console.log('')
         }else if(homeStatus === 'add department'){ // this adds a department
